@@ -1,0 +1,33 @@
+{
+  "name": "html-template--uideck-wedding-day",
+  "license": "MIT",
+  "scripts": {
+    "dev": "next",
+    "build": "next build",
+    "start": "next start",
+    "sync-guest-list": "node ./scripts/guestListFromCsv.js guest_list.csv > pages/guess_list.json",
+    "now:deploy": "yarn sync-guest-list && now --prod"
+  },
+  "dependencies": {
+    "csv-parser": "^2.3.2",
+    "gensync": "^1.0.0-beta.1",
+    "i18n-js": "^3.5.1",
+    "next": "^9.2.0",
+    "qrcode.react": "^1.0.0",
+    "react": "^16.12.0",
+    "react-add-to-calendar": "^0.1.5",
+    "react-dom": "^16.12.0",
+    "react-qr-reader": "^2.2.1",
+    "shortid": "^2.2.15",
+    "swr": "^0.1.16"
+  },
+  "devDependencies": {
+    "babel-plugin-import": "^1.13.0",
+    "babel-plugin-module-resolver": "^4.0.0",
+    "cross-env": "^5.1.1",
+    "now": "^16.7.3"
+  },
+  "peerDependencies": {
+    "gensync": "^1.0.0-beta.1"
+  }
+}

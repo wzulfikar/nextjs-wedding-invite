@@ -1,0 +1,10 @@
+{
+  "siteIntro": "WE ARE GETTING MARRIED",
+  "invitationGreeting": "Dear",
+  "invitationIntro": "You are cordially invited!",
+  "invitationContent": "We hope that you will make it to our wedding. Also, we'd like to send you the digital copy of photos we'll have during the event. So, be sure to scan this QR code when you check in.",
+  "invitationOutro": "Looking forward to seeing you!",
+  "guestCheckin": {
+    "pleaseScanInvitation": "Please scan your invitation.."
+  }
+}
