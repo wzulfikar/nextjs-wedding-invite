@@ -76,7 +76,7 @@ const ShowInvite = ({ currentUrl, guest }) => {
                   <div className="row justify-content-center">
                     <div className="col-lg-12">
                       <div className="slider_content text-center" style={{ paddingTop: 0 }}>
-                        <img style={{ maxHeight: 60, margin: 25, marginTop: 0 }} src={resolvePath(logo.headerLogo)} alt="logo" />
+                        <img style={{ maxHeight: 60, margin: 25, marginTop: 0 }} src={logo.headerLogo} alt="logo" />
                         <h5
                           className="slider_sub_title"
                           data-animation="fadeInUp"
@@ -248,9 +248,9 @@ const ShowInvite = ({ currentUrl, guest }) => {
               {logo.footerLogo &&
                 (logo.footerLogoType === "mp4" ?
                   <video height="140" autoPlay muted loop>
-                    <source src={resolvePath(logo.footerLogo)} type="video/mp4" />
+                    <source src={logo.footerLogo} type="video/mp4" />
                   </video>
-                  : <img src={resolvePath(logo.footerLogo)} />
+                  : <img src={logo.footerLogo} />
                 )}
             </div>
             <div className="footer_title">
