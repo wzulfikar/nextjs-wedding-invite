@@ -4,11 +4,11 @@ import useSWR from "swr";
 
 import Head from "@src/components/Head";
 import resolvePath from "@src/utils/resolvePath";
-import guestList from "./guest_list.json";
 import appConfig from "@src/config/app";
 import { t } from "@src/i18n";
+import guestList from "./guest_list.json";
 
-const ShowInvite = ({ currentUrl, guest }) => {
+const ShowInvite = ({ currentUrl, guestListLastUpdatedAt, guest }) => {
   // Initiate config variables
   const { logo, ogTags, coupleInfo, venue, weddingDay, weddingDate, weddingTime, calendarInfo } = appConfig
   const { brideName, groomName, coupleNameFormat } = coupleInfo
@@ -55,6 +55,7 @@ const ShowInvite = ({ currentUrl, guest }) => {
         guestName={guest.name}
         url={currentUrl}
         date={weddingDateBrief}
+        modifiedTime={guestListLastUpdatedAt}
         venue={venueBrief}
         logo={resolvePath(ogTags.logo)}
         author={resolvePath('/')}
@@ -293,7 +294,9 @@ ShowInvite.getInitialProps = (ctx) => {
     }
   }
 
-  const { name, greeting } = guestList.filter(guest => guest.guestId === guestId)[0] || {}
+  const guestData = guestList.data
+  const guestListLastUpdatedAt = guestList.meta.lastUpdatedAt
+  const { name, greeting } = guestData.filter(guest => guest.guestId === guestId)[0] || {}
   if (!name) {
     return {
       currentUrl,
@@ -303,6 +306,7 @@ ShowInvite.getInitialProps = (ctx) => {
 
   return {
     currentUrl,
+    guestListLastUpdatedAt,
     guest: {
       name,
       greeting,

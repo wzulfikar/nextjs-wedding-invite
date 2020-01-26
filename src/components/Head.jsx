@@ -1,7 +1,7 @@
 import Head from 'next/head';
 import resolvePath from '@src/utils/resolvePath';
 
-export default ({ title, description, url, logo, author, siteName, publishedTime }) => {
+export default ({ title, description, url, logo, author, siteName, publishedTime, modifiedTime }) => {
   return (
     <Head>
       <title>{title}</title>
@@ -11,7 +11,8 @@ export default ({ title, description, url, logo, author, siteName, publishedTime
       <meta property="og:site_name" content={siteName} />
       <meta property="og:url" content={url} />
       <meta property="og:image" content={logo} />
-      <meta property="article:published_time" content={publishedTime} />
+      {publishedTime && <meta property="article:published_time" content={publishedTime} />}
+      <meta property="article:modified_time" content={modifiedTime} />
       <meta property="article:author" content={author} />
 
       <meta name="description" content={description} />
@@ -28,7 +29,6 @@ export default ({ title, description, url, logo, author, siteName, publishedTime
       <script src="/assets/js/vendor/modernizr-3.7.1.min.js"></script>
       <script src="/assets/js/bootstrap.min.js"></script>
       <script src="/assets/js/jquery.easing.min.js"></script>
-      <script src="/assets/js/scrolling-nav.js"></script>
     </Head >
   );
 };
