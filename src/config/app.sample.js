@@ -46,6 +46,6 @@ const lang = {
 };
 
 export default {
-  baseConfig,
-  ...lang
+  ...baseConfig,
+  lang
 };
