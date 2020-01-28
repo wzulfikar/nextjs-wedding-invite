@@ -3,6 +3,7 @@ const baseConfig = {
   weddingTime: "19.00 - 21.00",
   weddingDate: "Feb 22, 2020",
   showBuiltWithInfo: true,
+  showQrCode: false,
   calendarInfo: {
     timeStartISO: "2020-02-22T19:00:00+08:00",
     timeEndISO: "2020-02-22T21:00:00+08:00"
