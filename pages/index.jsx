@@ -305,22 +305,21 @@ const ShowInvite = ({ currentUrl, guestListLastUpdatedAt, guest }) => {
   )
 };
 
-const emptyGuestParams = {
-  guest: {
-    guestId: '',
-    name: '',
-    greeting: '',
-    locale: defaultLocale,
-  }
-}
-
 ShowInvite.getInitialProps = (ctx) => {
-  const currentUrl = resolvePath(ctx.req.url)
   const localeParams = ctx.query.lang || defaultLocale
+  const emptyGuestParams = {
+    guest: {
+      guestId: '',
+      name: '',
+      greeting: '',
+      locale: localeParams,
+    }
+  }
+
+  const currentUrl = resolvePath(ctx.req.url)
   const guestId = ctx.query.u
   if (!guestId) {
     return {
-      locale: localeParams,
       currentUrl,
       ...emptyGuestParams
     }
@@ -331,7 +330,6 @@ ShowInvite.getInitialProps = (ctx) => {
   const { name, greeting, locale } = guestData.filter(guest => guest.guestId === guestId)[0] || {}
   if (!name) {
     return {
-      locale: localeParams,
       currentUrl,
       ...emptyGuestParams
     }
