@@ -9,11 +9,15 @@
 - i18n
 - og tags
 
-**Demo:** 
-https://wedding-invite-demo.wzulfikar.now.sh
-
 **Try in codesandbox:**
-https://codesandbox.io/s/github/wzulfikar/nextjs-wedding-invite
+
+- Visit https://codesandbox.io/s/github/wzulfikar/nextjs-wedding-invite
+- Rename `src/config/app.sample.js` to `src/config/app.js`
+- Rename `pages/guest_list.sample.json` to `pages/guest_list.json`
+- Change any value in `src/config/app.js` to see it updated in real time
+
+**Live Demo:**
+https://wedding-invite-demo.wzulfikar.now.sh
 
 **Screenshot:**
 
