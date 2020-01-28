@@ -5,12 +5,26 @@ import useSWR from "swr";
 import Head from "@src/components/Head";
 import resolvePath from "@src/utils/resolvePath";
 import appConfig from "@src/config/app";
-import { t } from "@src/i18n";
+import { useTranslation, defaultLocale } from "@src/i18n";
 import guestList from "./guest_list.json";
 
+const translateConfig = (appConfig, locale) => {
+  if (!locale || locale === defaultLocale) {
+    return appConfig
+  }
+  // Replace config with lang
+  const configLang = appConfig.lang[locale]
+  if (configLang === undefined) {
+    throw new Error("invalid locale: ", locale)
+  }
+  return { ...appConfig, ...configLang }
+}
+
 const ShowInvite = ({ currentUrl, guestListLastUpdatedAt, guest }) => {
+  const t = useTranslation(guest.locale)
+
   // Initiate config variables
-  const { logo, ogTags, coupleInfo, venue, weddingDay, weddingDate, weddingTime, calendarInfo } = appConfig
+  const { logo, ogTags, coupleInfo, venue, weddingDay, weddingDate, weddingTime, calendarInfo } = translateConfig(appConfig, guest.locale)
   const { brideName, groomName, coupleNameFormat } = coupleInfo
 
   const coupleNameStr = coupleNameFormat === 'GROOM_FIRST'
@@ -22,11 +36,11 @@ const ShowInvite = ({ currentUrl, guestListLastUpdatedAt, guest }) => {
 
   // Venue info
   const venueBrief = `${venue.name}, ${venue.city}, ${venue.country}`
-  const weddingDateBrief = `${weddingDate} (${weddingDay})`
+  const weddingDateBrief = `${weddingDay}, ${weddingDate}`
 
   // Event info
   const eventTitle = `${coupleNameStr}'s Wedding`
-  let eventDescription = `${weddingDateBrief} at ${venue.name}`
+  let eventDescription = `${weddingDateBrief} at ${venue.name}, ${venue.city}`
   if (guest.name) {
     eventDescription = `Dear ${guest.name}, you are cordially invited to our wedding on ${weddingDate} at ${venue.name}. Looking forward to seeing you!`
   }
@@ -121,13 +135,13 @@ const ShowInvite = ({ currentUrl, guestListLastUpdatedAt, guest }) => {
                 data-wow-delay="0.2s"
                 style={{ visibility: 'visible', animationDuration: '1.3s', animationDelay: '0.2s', animationName: 'fadeIn' }}
               >
-                <h3 className="title">Event Date:</h3>
+                <h3 className="title">{t("eventDate")}:</h3>
                 <p>{weddingDateBrief}</p>
                 <div style={{
                   paddingTop: '0.2rem',
                   paddingBottom: '0.2rem',
                 }}>
-                  <AddToCalendar event={calendarEvent} />
+                  <AddToCalendar event={calendarEvent} buttonLabel={t("btnAddToMyCalendar")} />
                 </div>
                 <img src="/assets/images/section_shape.png" alt="Shape" />
               </div>
@@ -183,37 +197,40 @@ const ShowInvite = ({ currentUrl, guestListLastUpdatedAt, guest }) => {
                     textAlign: 'left',
                     maxWidth: 400,
                     margin: 'auto',
-                    paddingBottom: 10,
+                    paddingBottom: 20,
                   }}>
                     {t('invitationGreeting')}
                     <p style={{ fontSize: '1.5rem' }}>{guest.name},</p>
                   </div>
                   )}
                   <h3 className="title">{t('invitationIntro')}</h3>
-                  {guest.name && (
-                    <div style={{
-                      textAlign: 'left',
-                      paddingTop: 20,
-                      paddingBottom: 20,
-                      maxWidth: 400,
-                      margin: 'auto',
+                  <div style={{
+                    textAlign: 'left',
+                    paddingTop: 20,
+                    paddingBottom: 20,
+                    maxWidth: 400,
+                    margin: 'auto',
+                  }}>
+                    <p style={{
+                      fontSize: '1rem',
+                      lineHeight: 'inherit',
+                      color: 'dimgrey',
+                      textAlign: t('invitationContentTextAlign')
                     }}>
-                      <p style={{
-                        fontSize: '1rem',
-                        lineHeight: 'inherit',
-                        color: 'dimgrey',
-                      }}>
-                        <i>
-                          {t('invitationContent')}
-                          <br />
-                          <br />
-                          {t('invitationOutro')}
-                        </i>
-                      </p>
-                    </div>
-                  )}
+                      <i>
+                        {t('invitationContent')}
+                        {t('invitationOutro') && !t('invitationOutro').startsWith("[missing") && (
+                          <>
+                            <br />
+                            <br />
+                            {t('invitationOutro')}
+                          </>
+                        )}
+                      </i>
+                    </p>
+                  </div>
 
-                  {guest.name && (
+                  {appConfig.showQrCode && guest.name && (
                     <div style={{ marginTop: 20, marginBottom: 35 }}>
                       <QRCode value={guest.guestId} />
                     </div>
@@ -226,11 +243,23 @@ const ShowInvite = ({ currentUrl, guestListLastUpdatedAt, guest }) => {
                         marginBottom: 10,
                       }}><b>{venue.name}</b></a>
                     <br />{venue.addressLine1}
+                    <br />{venue.addressLine2}
                     <br />{venue.country}.
                   </p>
                   <p className="text" style={{ marginTop: 10 }}>
                     <b>{weddingDate} · {weddingTime}</b>
                   </p>
+
+                  {t('invitationClosing') && !t('invitationClosing').startsWith("[missing") &&
+                    <p className="text" style={{
+                      fontStyle: "italic",
+                      maxWidth: 420,
+                      margin: 'auto',
+                      marginTop: 60,
+                    }}
+                      dangerouslySetInnerHTML={{ __html: t('invitationClosing') }}>
+                    </p>
+                  }
                 </div>
               </div>
             </div>
@@ -281,6 +310,7 @@ const emptyGuestParams = {
     guestId: '',
     name: '',
     greeting: '',
+    locale: defaultLocale,
   }
 }
 
@@ -296,7 +326,7 @@ ShowInvite.getInitialProps = (ctx) => {
 
   const guestData = guestList.data
   const guestListLastUpdatedAt = guestList.meta.lastUpdatedAt
-  const { name, greeting } = guestData.filter(guest => guest.guestId === guestId)[0] || {}
+  const { name, greeting, locale } = guestData.filter(guest => guest.guestId === guestId)[0] || {}
   if (!name) {
     return {
       currentUrl,
@@ -310,7 +340,8 @@ ShowInvite.getInitialProps = (ctx) => {
     guest: {
       name,
       greeting,
-      guestId
+      guestId,
+      locale: locale || defaultLocale,
     }
   }
 }

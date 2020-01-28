@@ -1,11 +1,17 @@
 import I18n from "i18n-js";
 import en from "./lang/en";
+import id from "./lang/id";
 
 const supportedLanguages = [
   {
     code: "en",
     label: "English",
     translations: en
+  },
+  {
+    code: "id",
+    label: "Indonesia",
+    translations: id
   }
 ];
 
@@ -32,3 +38,10 @@ export const Trans = props => (
     dangerouslySetInnerHTML={{ __html: t(props.i18nKey, { ...props }) }}
   ></span>
 );
+
+export const defaultLocale = I18n.defaultLocale;
+
+export const useTranslation = locale => {
+  I18n.locale = locale;
+  return I18n.t;
+};

@@ -1,0 +1,14 @@
+{
+  "siteIntro": "UNDANGAN PERNIKAHAN",
+  "eventDate": "Hari & Tanggal",
+  "invitationGreeting": "Kepada",
+  "invitationIntro": "﷽",
+  "invitationContent": "Dengan memohon rahmat Allah SWT, kami mengundang Bapak, Ibu, Saudara/Saudari untuk menghadiri resepsi pernikahan putra-putri kami yang in-syaa-Allah akan diadakan di:",
+  "invitationContentTextAlign": "center",
+  "invitationOutro": "",
+  "invitationClosing": "Kehadiran serta doa restu Bapak/Ibu/Saudara/i merupakan suatu kehormatan dan kebahagian bagi kami.<br/><br/>Wassalamu'alaikum Warahmatullahi Wabarakatuh.",
+  "btnAddToMyCalendar": "Tambahkan ke kalender saya",
+  "guestCheckin": {
+    "pleaseScanInvitation": "Please scan your invitation.."
+  }
+}

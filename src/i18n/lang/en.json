@@ -1,9 +1,12 @@
 {
   "siteIntro": "WE ARE GETTING MARRIED",
+  "eventDate": "Event Date",
   "invitationGreeting": "Dear",
-  "invitationIntro": "You are cordially invited!",
-  "invitationContent": "We hope that you will make it to our wedding. Also, we'd like to send you the digital copy of photos we'll have during the event. So, be sure to scan this QR code when you check in.",
-  "invitationOutro": "Looking forward to seeing you!",
+  "invitationIntro": "You Are Cordially Invited",
+  "invitationContent": "Our joy will be more complete with your presence in our special day.",
+  "invitationContentTextAlign": "left",
+  "invitationOutro": "We are looking forward to seeing you.",
+  "btnAddToMyCalendar": "Add to my calendar",
   "guestCheckin": {
     "pleaseScanInvitation": "Please scan your invitation.."
   }

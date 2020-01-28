@@ -1,4 +1,4 @@
-export default {
+const baseConfig = {
   weddingDay: "Saturday",
   weddingTime: "19.00 - 21.00",
   weddingDate: "Feb 22, 2020",
@@ -30,4 +30,21 @@ export default {
     siteName: "wedding.wzulfikar.com",
     publishedTime: "2020-01-25"
   }
+};
+
+const lang = {
+  id: {
+    weddingDay: "Sabtu",
+    weddingDate: "22 Februari 2020",
+    venue: {
+      ...baseConfig.venue,
+      name: "Hotel Oval",
+      addressLine2: "Surabaya, Jawa Timur, 60241,",
+    }
+  }
+};
+
+export default {
+  baseConfig,
+  ...lang
 };
