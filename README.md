@@ -1,4 +1,4 @@
-# NextJS Wedding Invitation Template
+<h1 align="center">NextJS Wedding Invitation Template</h1>
 
 ### Features
 
