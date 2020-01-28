@@ -194,7 +194,7 @@ const ShowInvite = ({ currentUrl, guestListLastUpdatedAt, guest }) => {
               <div className="col-lg-9">
                 <div className="section_title text-center pb-30">
                   {guest.name && (<div style={{
-                    textAlign: 'left',
+                    textAlign: 'center',
                     maxWidth: 400,
                     margin: 'auto',
                     paddingBottom: 20,
